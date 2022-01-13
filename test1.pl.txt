@@ -1,0 +1,70 @@
+use strict;
+
+open(FHT, "target.txt");
+my @target = <FHT>;  #chomp(my @target = <FHT>) ? LF로만 저장, CR는 제거가 안됨
+close(FHT);
+
+open(FHS, "source.txt");
+my @source = <FHS>;
+close(FHS);                        
+
+my $i = 0;
+my $j = 0;
+
+for my $t (@target){
+    $i++;
+    my $cnt = 0;               # 키포인트
+    for my $s (@source){   # while(<FHS>){ 는 배열에서 할당되어 소진되어 버림
+        if($t eq $s){                
+            $cnt++;
+        }
+    }
+    if($cnt >= 1){
+      $j++;
+      print "$j ($i) ".$t."  :  ".$cnt."\r\n";
+    }
+}
+
+
+
+=pod
+my $age = 18;
+print $age >= 20 ? "성인\n" : "미성년\n";
+
+my $point = 82;
+my $result = 
+                  $point >= 90 ? "A" :
+                  $point >= 80 ? "B" :
+                  $point >= 70 ? "C" :
+                  "F";
+print "성적은 $result 입니다\n";
+
+my $n = 0;
+foreach my $i (1..5){
+    print "카운트 : $i \n";
+    if($i == 3){
+        $n++;
+        if($n >= 2){
+            last;
+        }
+        redo;
+    }
+}
+
+foreach my $i (1..5){
+    if($i == 3){
+        next;
+    }
+    print "카운트 : $i  \n";
+}
+
+my $j = 9;
+while($j > 5){
+     print "카운트j : $j  \n";
+     $j--;
+}
+
+for(my $k = 9; $k > 5; $k--){
+    print "카운트k :  $k   \n";
+}
+=cut
